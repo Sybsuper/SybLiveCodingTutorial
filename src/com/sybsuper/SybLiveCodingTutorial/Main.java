@@ -15,11 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends JavaPlugin {
+    public static Main INSTANCE;
     Effect effect;
     List<Player> playersThatHaveHeartsEnabled = new ArrayList<>();// li = []
 
     @Override
     public void onEnable() {
+        INSTANCE = this;
         FileConfiguration config = getConfig();
         config.options().copyDefaults(true);
         saveConfig();
@@ -40,6 +42,8 @@ public class Main extends JavaPlugin {
                 }
             }
         }, 2, 2);
+        Bukkit.getPluginManager().registerEvents(new DoubleJumpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GUIListener(), this);
     }
 
     @Override
@@ -58,4 +62,6 @@ public class Main extends JavaPlugin {
         }
         return true;
     }
+
+
 }
